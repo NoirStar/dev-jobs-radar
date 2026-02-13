@@ -94,16 +94,37 @@ IT/개발 분야의 채용공고를 여러 채용 플랫폼 + 기업 직접 채�
 | 4 | **프로그래머스 (Programmers)** | 크롤링 / API | 개발자 특화 공고, 기술 태그, 회사 프로필, 코딩테스트 여부 | 1h |
 | 5 | **점핏 (Jumpit)** | 크롤링 / API | 개발자 채용, 기술 스택 태그, 회사 규모, 연봉 | 1h |
 
-### 🟡 Tier 2 — 글로벌 & 추가 플랫폼
+### 🟡 Tier 2 — 추가 국내 채용 플랫폼
 
 | # | 소스 | 수집 방법 | 수집 데이터 | 주기 |
 |---|------|-----------|-------------|------|
-| 6 | **LinkedIn Jobs** | API + 크롤링 | 글로벌/한국 IT 채용, 회사 정보, 기술 요구사항 | 2h |
-| 7 | **랠릿 (Rallit)** | 크롤링 | 개발자 이력서 매칭 공고, 기술 스택 | 2h |
-| 8 | **로켓펀치 (RocketPunch)** | 크롤링 | 스타트업 채용, 회사 정보, 투자 단계 | 2h |
-| 9 | **인디드 (Indeed Korea)** | 크롤링 | IT 채용 통합 검색 | 2h |
-| 10 | **블라인드 채용** | 크롤링 | 현직자 리뷰 연동, 채용 정보 | 4h |
-| 11 | **캐치 (Catch)** | 크롤링 | 채용공고, 기업 리뷰, 면접 후기 | 4h |
+| 6 | **랠릿 (Rallit)** | 크롤링 | 개발자 이력서 매칭 공고, 기술 스택 | 1h |
+| 7 | **로켓펀치 (RocketPunch)** | 크롤링 | 스타트업 채용, 회사 정보, 투자 단계 | 2h |
+| 8 | **인디드 코리아 (Indeed)** | 크롤링 | IT 채용 통합 검색, 급여 정보 | 2h |
+| 9 | **블라인드 채용 (Blind)** | 크롤링 | 현직자 리뷰 연동, 채용 정보, 연봉 실제 데이터 | 2h |
+| 10 | **캐치 (Catch)** | 크롤링 | 채용공고, 기업 리뷰, 면접 후기 | 4h |
+| 11 | **잡플래닛 (JobPlanet)** | 크롤링 | 기업 리뷰, 연봉 정보, 면접 후기, 채용 공고 | 2h |
+| 12 | **OKKY 채용** | 크롤링 | 개발자 커뮤니티 채용 게시판, 직접 채용 | 2h |
+| 13 | **디스콰이엇 (Disquiet)** | 크롤링 | IT 사이드 프로젝트 & 스타트업 채용 | 4h |
+| 14 | **커리어리 (Careerly)** | 크롤링 | 개발자 네트워크 채용 정보, 현직자 추천 | 4h |
+| 15 | **워크넷 (WorkNet)** | [고용노동부 API](https://openapi.work.go.kr/) | 공공 채용 데이터, IT 직종 필터 | 2h |
+| 16 | **피플앤잡 (PeopleNJob)** | 크롤링 | IT 채용 정보, 헤드헌팅 공고 | 4h |
+
+### 🟠 Tier 3 — 글로벌 채용 플랫폼
+
+| # | 소스 | 수집 방법 | 수집 데이터 | 주기 |
+|---|------|-----------|-------------|------|
+| 17 | **LinkedIn Jobs** | API + 크롤링 | 글로벌/한국 IT 채용, 회사 정보, 기술 요구사항 | 2h |
+| 18 | **Glassdoor** | 크롤링 | 글로벌 채용, 연봉 데이터, 기업 리뷰 | 4h |
+| 19 | **Wellfound (AngelList)** | API | 스타트업 채용, 해외 원격 근무 포지션 | 4h |
+| 20 | **Remote OK** | [API](https://remoteok.com/api) | 원격 근무 IT 채용 (JSON API 제공) | 4h |
+| 21 | **We Work Remotely** | 크롤링 | 원격 근무 프리미엄 채용 | 4h |
+| 22 | **Stack Overflow Jobs** | 크롤링 | 개발자 특화 글로벌 채용, 기술 태그 | 4h |
+| 23 | **Hired** | 크롤링 | 역경매 방식 채용, 연봉 정보 공개 | 6h |
+| 24 | **일본 IT 채용 (Green)** | 크롤링 (`green-japan.com`) | 일본 IT 기업 채용, 해외 취업 관심자 | 6h |
+| 25 | **일본 IT 채용 (Wantedly JP)** | 크롤링 | 일본 스타트업 채용 | 6h |
+| 26 | **로버트 월터스 코리아** | 크롤링 | IT 헤드헌팅, 외국계 기업 포지션 | 6h |
+| 27 | **마이클 페이지 코리아** | 크롤링 | IT 헤드헌팅, 시니어 포지션 | 6h |
 
 ### 🔵 Tier 3 — 기업 직접 채용페이지
 
@@ -330,6 +351,121 @@ Java (8), Kotlin (6), Spring (7), React (4), K8s (5), AWS (8)
 - **기업 활동** — 가장 활발하게 채용 중인 기업 순위
 - **지역별 분포** — 서울/판교/기타 지역 채용 비율
 
+### 8. 📈 트렌드 그래프 & 차트 시각화 (핵심 시각화)
+
+채용 시장의 흐름을 한눈에 파악할 수 있는 인터랙티브 차트/그래프 모음.
+
+#### 📊 차트 종류 & 배치
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  📈 트렌드 & 분석                                           │
+├─────────────────────────────┬───────────────────────────────┤
+│                             │                               │
+│  ① 기술 수요 트렌드 차트     │  ② 직군별 채용 추이            │
+│  (Line Chart — 시계열)      │  (Stacked Area Chart)         │
+│                             │                               │
+│  React ────────╱            │  ████ 백엔드                  │
+│  TypeScript ──╱─            │  ████ 프론트엔드               │
+│  Go ────────╱               │  ████ DevOps                  │
+│  Rust ─────╱                │  ████ AI/ML                   │
+│                             │  ████ 모바일                   │
+│  [1주 | 1개월 | 3개월 | 1년] │  [월간 | 분기 | 연간]          │
+│                             │                               │
+├─────────────────────────────┼───────────────────────────────┤
+│                             │                               │
+│  ③ 기술 요구 순위 변화       │  ④ 연봉 분포 박스플롯          │
+│  (Bump Chart — 순위 경쟁)   │  (Box Plot / Violin Chart)    │
+│                             │                               │
+│  1위 ── Java ──── Java      │   FE  [====|====]             │
+│  2위 ── Spring ── Python    │   BE  [======|========]       │
+│  3위 ── Python ── Spring    │   DevOps [========|=====]     │
+│  4위 ── React ── K8s        │   AI  [==========|========]   │
+│  5위 ── K8s ──── React      │                               │
+│       2025-Q4   2026-Q1     │  [직군별 | 기술별 | 경력별]     │
+│                             │                               │
+├─────────────────────────────┼───────────────────────────────┤
+│                             │                               │
+│  ⑤ 기술 스택 히트맵          │  ⑥ 기업 채용 활동 타임라인      │
+│  (Heatmap — 직군×기술)      │  (Timeline / Gantt 스타일)    │
+│                             │                               │
+│       Java Spring K8s React │  토스   ■■■■  ■■  ■■■■■       │
+│  BE    🟥  🟥   🟧  ⬜    │  네이버  ■■■ ■■■■ ■■ ■■■      │
+│  FE    ⬜  ⬜   ⬜  🟥    │  카카오  ■■ ■■■  ■■■■         │
+│  DevOps⬜  ⬜   🟥  ⬜    │  쿠팡   ■■■■■ ■■ ■■■■         │
+│  AI    🟧  ⬜   ⬜  ⬜    │       1월  2월  3월  4월        │
+│                             │                               │
+├─────────────────────────────┼───────────────────────────────┤
+│                             │                               │
+│  ⑦ 기술 조합 네트워크 그래프  │  ⑧ 신규 공고 추이 (일간)      │
+│  (Force-Directed Graph)     │  (Bar + Line Combo Chart)     │
+│                             │                               │
+│    Spring──Java──K8s        │  ██                           │
+│      │       │    │         │  ██ ██                        │
+│    JPA    Redis Docker      │  ██ ██ ██ ██                  │
+│              │              │  ██ ██ ██ ██ ██ ██ ██         │
+│           Kafka             │  월 화 수 목 금 토 일          │
+│                             │  ─── 누적 공고 수 (Line)       │
+│                             │                               │
+├─────────────────────────────┴───────────────────────────────┤
+│                                                             │
+│  ⑨ 종합 레이더 차트 (내 기술 vs 시장 요구)                    │
+│  (Radar/Spider Chart)                                       │
+│                                                             │
+│              Java                                           │
+│            ╱ ─ ─ ╲                                          │
+│      K8s ╱ ●───● ╲ Spring                                  │
+│          │ │   │ │                                          │
+│      AWS ╲ ●───● ╱ Python                                  │
+│            ╲ ─ ─ ╱                                          │
+│             Docker                                          │
+│                                                             │
+│  ── 시장 요구 (직군 평균)   ●● 내 기술 수준                   │
+│  → 갭 분석: "Docker, K8s 보강 추천"                          │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+#### 📊 차트 상세 스펙
+
+| # | 차트 | 차트 유형 | 라이브러리 | 데이터 소스 | 인터랙션 |
+|---|------|----------|-----------|------------|----------|
+| ① | **기술 수요 트렌드** | Line Chart (멀티 시리즈) | Recharts | 기술별 공고 수 시계열 | 기술 선택/비교, 기간 필터, 호버 툴팁 |
+| ② | **직군별 채용 추이** | Stacked Area Chart | Recharts | 직군별 신규 공고 수 추이 | 직군 토글, 기간 변경, 드릴다운 |
+| ③ | **기술 순위 변화** | Bump Chart | D3.js (커스텀) | 기간별 기술 요구 순위 | 기간 슬라이더, 기술 하이라이트 |
+| ④ | **연봉 분포** | Box Plot / Violin | D3.js | 공고별 연봉 범위 데이터 | 직군/기술/경력별 전환, 아웃라이어 표시 |
+| ⑤ | **기술 히트맵** | Heatmap | D3.js | 직군×기술 교차 빈도 | 셀 클릭 → 해당 공고 목록, 색상 범위 조절 |
+| ⑥ | **기업 채용 타임라인** | Timeline / Gantt | D3.js (커스텀) | 기업별 월간 공고 수 히스토리 | 기업 정렬, 기간 확대/축소, 클릭 → 기업 프로필 |
+| ⑦ | **기술 조합 네트워크** | Force-Directed Graph | D3.js | 기술 동시 출현 빈도 (co-occurrence) | 줌/팬, 노드 클릭 → 관련 공고, 클러스터링 |
+| ⑧ | **신규 공고 추이** | Bar + Line Combo | Recharts | 일간/주간 신규 공고 수 | 바 (일간) + 라인 (누적/이동평균), 필터 |
+| ⑨ | **레이더 차트 (매칭)** | Radar/Spider Chart | Recharts | 시장 요구 vs 내 기술 | 직군 변경, 기술 커스텀, 갭 분석 자동 코멘트 |
+| ⑩ | **기술 워드클라우드** | Word Cloud | D3-cloud | 기술 언급 빈도 | 클릭 → 해당 기술 공고 필터, 크기=빈도 |
+| ⑪ | **경력별 기술 Sankey** | Sankey Diagram | D3.js | 경력 구간 → 요구 기술 흐름 | 호버 하이라이트, 경력 구간 선택 |
+| ⑫ | **채용 지도 (지역)** | Choropleth Map | D3.js + TopoJSON | 지역별 채용 밀도 | 지역 클릭 → 해당 지역 공고, 색상=밀도 |
+
+#### 📊 대시보드 페이지별 차트 배치
+
+| 페이지 | 포함 차트 | 주 목적 |
+|--------|----------|--------|
+| **메인 대시보드** | ①②⑧⑩ | 전체 시장 현황 한눈에 |
+| **기술 분석** | ①③⑤⑦⑪ | 기술 스택 심층 분석 |
+| **연봉 분석** | ④ (확장 뷰) | 직군/기술/경력별 연봉 비교 |
+| **기업 탐색** | ⑥ | 기업별 채용 활동 비교 |
+| **내 프로필** | ⑨ | 내 기술 vs 시장 갭 분석 |
+| **시장 인사이트** | ①②③④⑤⑧⑫ | 종합 보고서 |
+
+#### 📊 차트 인터랙션 공통 패턴
+
+```
+모든 차트 공통:
+├── 📏 기간 선택: [1주 | 1개월 | 3개월 | 6개월 | 1년 | 전체]
+├── 🏷️ 필터 연동: 사이드바 직군/기술 필터와 실시간 동기화
+├── 🖱️ 호버 툴팁: 구체적 수치 표시
+├── 📸 내보내기: PNG/SVG 다운로드, 클립보드 복사
+├── 🔗 공유: 현재 차트 상태 URL 공유 (필터+기간 포함)
+└── 📱 반응형: 모바일에서 스와이프/탭 인터랙션
+```
+
 ---
 
 ## 기술 스택 (예상)
@@ -339,7 +475,8 @@ Java (8), Kotlin (6), Spring (7), React (4), K8s (5), AWS (8)
 | **Frontend** | React 19 + Vite + TypeScript | 빠른 개발, 풍부한 에코시스템 |
 | **스타일링** | Tailwind CSS v4 + shadcn/ui | TechPulse와 동일 스택, 빠른 UI 구성 |
 | **상태관리** | Zustand | 심플하고 강력한 상태 관리 |
-| **차트/시각화** | Recharts + D3.js | 기술 트렌드 차트, 스택 분석 그래프 |
+| **차트/시각화** | Recharts + D3.js + d3-cloud | 트렌드 차트 12종, 워드클라우드, 네트워크 그래프 |
+| **지도** | D3.js + TopoJSON (한국 행정구역) | 채용 지역 분포 Choropleth Map |
 | **캘린더** | @fullcalendar/react 또는 커스텀 | 채용 마감일 캘린더 |
 | **라우팅** | React Router 7 | SPA 라우팅 |
 | **데이터 수집** | Node.js + Cheerio + RSS Parser | 크롤링, RSS, API 호출 |
@@ -477,12 +614,25 @@ interface Application {
 // ──────────────── Enums / Types ────────────────
 
 type JobSource =
+  // Tier 1: 주요 채용 플랫폼
   | 'wanted' | 'saramin' | 'jobkorea' | 'programmers' | 'jumpit'
-  | 'linkedin' | 'rallit' | 'rocketpunch' | 'indeed' | 'blind' | 'catch'
+  // Tier 2: 추가 국내 플랫폼
+  | 'rallit' | 'rocketpunch' | 'indeed' | 'blind' | 'catch'
+  | 'jobplanet' | 'okky' | 'disquiet' | 'careerly' | 'worknet' | 'peoplenjob'
+  // Tier 3: 글로벌 플랫폼
+  | 'linkedin' | 'glassdoor' | 'wellfound' | 'remoteok' | 'weworkremotely'
+  | 'stackoverflow-jobs' | 'hired' | 'green-japan' | 'wantedly-jp'
+  | 'robert-walters' | 'michael-page'
+  // Tier 4: 기업 직접
   | 'naver' | 'kakao' | 'line' | 'coupang' | 'woowa' | 'toss'
-  | 'karrot' | 'samsung-sds' | 'lg-cns' | 'sk-cc' | 'nhn'
-  | 'nexon' | 'krafton' | 'ncsoft' | 'hyperconnect' | 'yanolja'
-  | 'dunamu' | 'moloco'
+  | 'karrot' | 'yanolja' | 'musinsa' | 'kurly' | 'ridi'
+  | 'kakaobank' | 'kakaopay' | 'naver-financial' | 'dunamu'
+  | 'hyperconnect' | 'moloco' | 'buzzvil' | 'sendbird'
+  | 'samsung-sds' | 'samsung-elec' | 'lg-cns' | 'lg-elec'
+  | 'sk-cc' | 'skt' | 'hyundai-autoever' | 'hyundai-mobis' | 'nhn' | 'hancom'
+  | 'nexon' | 'krafton' | 'ncsoft' | 'netmarble' | 'smilegate'
+  | 'pearl-abyss' | 'devsisters' | 'wemade' | 'com2us' | 'kakaogames'
+  | 'kt' | 'lguplus' | 'nia' | 'kisa'
   | 'custom'  // 사용자가 직접 추가한 기업
 
 type JobCategory =
@@ -767,6 +917,20 @@ dev-jobs-radar/
 │   │   │   ├── SkillChart.tsx        # 기술 차트
 │   │   │   ├── SkillComparison.tsx   # 기술 비교
 │   │   │   └── MarketInsight.tsx     # 시장 인사이트
+│   │   ├── charts/              # 트렌드 그래프 & 차트
+│   │   │   ├── SkillTrendLine.tsx     # ① 기술 수요 트렌드 (Line)
+│   │   │   ├── CategoryAreaChart.tsx  # ② 직군별 채용 추이 (Stacked Area)
+│   │   │   ├── SkillBumpChart.tsx     # ③ 기술 순위 변화 (Bump)
+│   │   │   ├── SalaryBoxPlot.tsx      # ④ 연봉 분포 (Box Plot)
+│   │   │   ├── SkillHeatmap.tsx       # ⑤ 기술 히트맵 (직군×기술)
+│   │   │   ├── CompanyTimeline.tsx    # ⑥ 기업 채용 타임라인
+│   │   │   ├── SkillNetworkGraph.tsx  # ⑦ 기술 조합 네트워크 (Force)
+│   │   │   ├── NewPostingsChart.tsx   # ⑧ 신규 공고 추이 (Bar+Line)
+│   │   │   ├── SkillRadar.tsx         # ⑨ 내 기술 vs 시장 (Radar)
+│   │   │   ├── SkillWordCloud.tsx     # ⑩ 기술 워드클라우드
+│   │   │   ├── ExperienceSankey.tsx   # ⑪ 경력별 기술 Sankey
+│   │   │   ├── RegionMap.tsx          # ⑫ 채용 지역 지도
+│   │   │   └── ChartContainer.tsx     # 공통 차트 컨테이너 (기간/필터/내보내기)
 │   │   ├── tracking/            # 지원 추적
 │   │   │   ├── ApplicationTracker.tsx # 지원 현황 보드
 │   │   │   └── ApplicationCard.tsx   # 지원 카드
@@ -864,10 +1028,10 @@ dev-jobs-radar/
 - [ ] React + Vite + TypeScript 프로젝트 초기화
 - [ ] Tailwind CSS v4 + shadcn/ui 설정
 - [ ] ESLint + Prettier 설정
-- [ ] 타입 정의 (job.ts, company.ts, skill.ts, user.ts)
+- [ ] 타입 정의 (job.ts, company.ts, skill.ts, chart.ts, user.ts)
 - [ ] 기술 키워드 사전 (skills.ts) — 500+ 기술 키워드 분류
 - [ ] 직군 카테고리 데이터 (categories.ts)
-- [ ] 기업 시드 데이터 (companies.ts) — 30개 주요 기업 기본 정보
+- [ ] 기업 시드 데이터 (companies.ts) — 45개+ 주요 기업 기본 정보
 - [ ] 목 데이터 기반 대시보드 UI 스캐폴딩
 - [ ] Vitest + RTL 테스트 설정
 - [ ] ✅ **테스트**: 타입 무결성, 데이터 소스, 컴포넌트 렌더 테스트
@@ -897,32 +1061,55 @@ dev-jobs-radar/
 - [ ] 반응형 디자인 (모바일)
 - [ ] ✅ **테스트**: 페이지 렌더, 필터 인터랙션, 검색, 캘린더
 
-### Phase 3: 기술 분석 & 인사이트 (Day 14-17)
-- [ ] 기술 분석 엔진 (skillAnalyzer.ts)
-- [ ] 직군별 기술 트렌드 차트 (Recharts)
-- [ ] 기술 조합 분석
-- [ ] 경력별/기업규모별 기술 비교
-- [ ] 전월/전분기 트렌드 변화
-- [ ] 시장 인사이트 대시보드
-- [ ] ✅ **테스트**: 분석 엔진, 차트 데이터 바인딩
+### Phase 3: 트렌드 그래프 & 차트 시각화 (Day 14-19)
+- [ ] 공통 차트 컨테이너 (기간 선택, 필터 연동, 내보내기, 공유)
+- [ ] ① 기술 수요 트렌드 Line Chart (Recharts) — 멀티 시리즈, 기간 필터
+- [ ] ② 직군별 채용 추이 Stacked Area Chart (Recharts)
+- [ ] ③ 기술 순위 변화 Bump Chart (D3.js 커스텀)
+- [ ] ④ 연봉 분포 Box Plot / Violin Chart (D3.js)
+- [ ] ⑤ 기술 스택 히트맵 — 직군×기술 교차 빈도 (D3.js)
+- [ ] ⑥ 기업 채용 활동 타임라인 (D3.js)
+- [ ] ⑦ 기술 조합 네트워크 그래프 — Force-Directed (D3.js)
+- [ ] ⑧ 신규 공고 추이 Bar + Line Combo (Recharts)
+- [ ] ⑨ 레이더 차트 — 내 기술 vs 시장 요구 (Recharts)
+- [ ] ⑩ 기술 워드클라우드 (D3-cloud)
+- [ ] ⑪ 경력별 기술 Sankey Diagram (D3.js)
+- [ ] ⑫ 채용 지역 지도 Choropleth (D3.js + TopoJSON)
+- [ ] 차트 인터랙션: 호버 툴팁, 클릭→공고 필터, 드릴다운
+- [ ] ✅ **테스트**: 차트 렌더, 데이터 바인딩, 인터랙션, 반응형
 
-### Phase 4: 기업 탐색 & 관심 기업 (Day 18-21)
+### Phase 4: 기술 분석 엔진 & 인사이트 (Day 20-23)
+- [ ] 기술 분석 엔진 (skillAnalyzer.ts)
+- [ ] 기술 조합 분석 (co-occurrence matrix)
+- [ ] 경력별/기업규모별 기술 비교
+- [ ] 전월/전분기 트렌드 변화 계산
+- [ ] 시장 인사이트 종합 대시보드
+- [ ] ✅ **테스트**: 분석 엔진, 통계 정확도
+
+### Phase 5: 기업 탐색 & 관심 기업 (Day 24-27)
 - [ ] 기업 탐색 페이지 (CompanyExplorer)
 - [ ] 기업 프로필 페이지 (채용 히스토리, 기술 프로필)
 - [ ] 관심 기업 등록 & 관리
-- [ ] Tier 2 수집기 (LinkedIn, 랠릿, 로켓펀치, 인디드)
-- [ ] ✅ **테스트**: 기업 탐색, 프로필, 관심 기업 CRUD
+- [ ] Tier 2 수집기 — 추가 국내 플랫폼 (11개)
+  - [ ] 랠릿, 로켓펀치, 인디드, 블라인드, 캐치
+  - [ ] 잡플래닛, OKKY, 디스콰이엇, 커리어리, 워크넷, 피플앤잡
+- [ ] ✅ **테스트**: 기업 탐색, 프로필, 관심 기업 CRUD, 수집기
 
-### Phase 5: 기업 직접 채용페이지 수집기 (Day 22-26)
-- [ ] Tier 3 수집기 — 주요 기업 직접 채용페이지
-  - [ ] 네이버, 카카오, 라인, 쿠팡
-  - [ ] 토스, 당근, 배민
-  - [ ] 삼성SDS, LG CNS
-  - [ ] 게임사 (넥슨, 크래프톤, NC)
+### Phase 6: 글로벌 & 기업 직접 수집기 (Day 28-34)
+- [ ] Tier 3 수집기 — 글로벌 플랫폼 (11개)
+  - [ ] LinkedIn, Glassdoor, Wellfound, RemoteOK, WWR
+  - [ ] Stack Overflow Jobs, Hired
+  - [ ] 일본 IT (Green, Wantedly JP)
+  - [ ] 헤드헌팅 (로버트월터스, 마이클페이지)
+- [ ] Tier 4 수집기 — 기업 직접 채용페이지 (43개)
+  - [ ] 플랫폼/커머스/핀테크 (네이버~센드버드, 19개)
+  - [ ] 대기업/SI (삼성SDS~한컴, 10개)
+  - [ ] 게임사 (넥슨~카카오게임즈, 10개)
+  - [ ] 통신/공공 (KT~KISA, 4개)
 - [ ] 사용자 커스텀 URL 모니터링 기능
-- [ ] ✅ **테스트**: 각 기업 수집기, 커스텀 URL 수집
+- [ ] ✅ **테스트**: 각 수집기 단위 테스트, 커스텀 URL 수집
 
-### Phase 6: 사용자 기능 & 알림 (Day 27-31)
+### Phase 7: 사용자 기능 & 알림 (Day 35-39)
 - [ ] Supabase 연동 (DB + Auth)
 - [ ] 사용자 프로필 설정
 - [ ] 지원 추적 기능 (ApplicationTracker)
@@ -932,10 +1119,11 @@ dev-jobs-radar/
 - [ ] 일간 다이제스트 이메일
 - [ ] ✅ **테스트**: 인증, 프로필 CRUD, 지원 추적, 알림 로직
 
-### Phase 7: 고도화 (Day 32+)
+### Phase 8: 고도화 (Day 40+)
 - [ ] AI 기반 공고 요약 (OpenAI API)
 - [ ] 기술 매칭 점수 ("이 공고와 85% 일치")
 - [ ] 면접 준비 도우미 (공고 기반 예상 질문)
+- [ ] TechPulse 연동 — 트렌딩 기술 × 채용 수요 교차 분석
 - [ ] 다크 모드
 - [ ] PWA 지원
 - [ ] 성능 최적화 (가상화 리스트, 코드 스플리팅)
