@@ -1,4 +1,4 @@
-import { Search, Bell, Settings, Menu, Radar } from 'lucide-react'
+import { Search, Bell, Settings, Menu, Radar, Moon, Sun } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useFilterStore } from '@/stores/filterStore'
@@ -8,6 +8,8 @@ export function Header() {
   const searchQuery = useFilterStore((s) => s.searchQuery)
   const setSearchQuery = useFilterStore((s) => s.setSearchQuery)
   const toggleSidebar = useUserStore((s) => s.toggleSidebar)
+  const toggleTheme = useUserStore((s) => s.toggleTheme)
+  const theme = useUserStore((s) => s.settings.theme)
 
   return (
     <header className="sticky top-0 z-50 flex h-14 items-center gap-4 border-b bg-background/80 backdrop-blur-lg px-4">
@@ -32,6 +34,9 @@ export function Header() {
       </div>
 
       <div className="flex items-center gap-1">
+        <Button variant="ghost" size="icon" onClick={toggleTheme} aria-label="테마 전환">
+          {theme === 'dark' ? <Sun className="size-5" /> : <Moon className="size-5" />}
+        </Button>
         <Button variant="ghost" size="icon" aria-label="알림">
           <Bell className="size-5" />
         </Button>

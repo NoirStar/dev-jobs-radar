@@ -73,7 +73,7 @@ describe('타입 정의', () => {
 
   describe('DEFAULT_USER_SETTINGS', () => {
     it('기본 사용자 설정이 올바르다', () => {
-      expect(DEFAULT_USER_SETTINGS.theme).toBe('system')
+      expect(DEFAULT_USER_SETTINGS.theme).toBe('dark')
       expect(DEFAULT_USER_SETTINGS.language).toBe('ko')
       expect(DEFAULT_USER_SETTINGS.emailNotifications).toBe(true)
       expect(DEFAULT_USER_SETTINGS.digestFrequency).toBe('daily')

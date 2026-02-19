@@ -43,7 +43,7 @@ export interface UserSettings {
 
 /** 기본 사용자 설정 */
 export const DEFAULT_USER_SETTINGS: UserSettings = {
-  theme: 'system',
+  theme: 'dark',
   language: 'ko',
   emailNotifications: true,
   pushNotifications: false,
