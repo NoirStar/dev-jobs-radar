@@ -116,6 +116,45 @@ describe('filterStore', () => {
     useFilterStore.getState().setSortOrder('asc')
     expect(useFilterStore.getState().sortOrder).toBe('asc')
   })
+
+  it('setExperienceLevel로 경력 필터를 설정한다', () => {
+    useFilterStore.getState().setExperienceLevel('senior')
+    expect(useFilterStore.getState().experienceLevel).toBe('senior')
+    expect(useFilterStore.getState().hasActiveFilters()).toBe(true)
+  })
+
+  it('toggleRegion으로 지역 필터를 토글한다', () => {
+    useFilterStore.getState().toggleRegion('서울')
+    expect(useFilterStore.getState().selectedRegions).toContain('서울')
+    expect(useFilterStore.getState().hasActiveFilters()).toBe(true)
+
+    useFilterStore.getState().toggleRegion('서울')
+    expect(useFilterStore.getState().selectedRegions).not.toContain('서울')
+  })
+
+  it('toggleSource로 소스 필터를 토글한다', () => {
+    useFilterStore.getState().toggleSource('wanted')
+    expect(useFilterStore.getState().selectedSources).toContain('wanted')
+    expect(useFilterStore.getState().hasActiveFilters()).toBe(true)
+
+    useFilterStore.getState().toggleSource('wanted')
+    expect(useFilterStore.getState().selectedSources).not.toContain('wanted')
+  })
+
+  it('resetFilters가 모든 Phase 2 필터도 초기화한다', () => {
+    useFilterStore.getState().setExperienceLevel('mid')
+    useFilterStore.getState().toggleRegion('경기')
+    useFilterStore.getState().toggleSource('saramin')
+    useFilterStore.getState().setSortBy('deadline')
+    useFilterStore.getState().setSortOrder('asc')
+
+    useFilterStore.getState().resetFilters()
+    expect(useFilterStore.getState().experienceLevel).toBe('all')
+    expect(useFilterStore.getState().selectedRegions).toHaveLength(0)
+    expect(useFilterStore.getState().selectedSources).toHaveLength(0)
+    expect(useFilterStore.getState().sortBy).toBe('latest')
+    expect(useFilterStore.getState().sortOrder).toBe('desc')
+  })
 })
 
 // ── companyStore ──

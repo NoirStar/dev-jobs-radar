@@ -4,7 +4,43 @@ import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { JOB_CATEGORIES } from '@/data/categories'
 import { useFilterStore } from '@/stores/filterStore'
-import { X, FolderOpen, Code2, Building, Globe } from 'lucide-react'
+import {
+  X, FolderOpen, Code2, Building, Globe, MapPin,
+  Briefcase, SortAsc, SortDesc, ArrowUpDown,
+  Radio,
+} from 'lucide-react'
+import type { ExperienceLevel } from '@/types/job'
+
+const experienceOptions: { value: ExperienceLevel | 'all'; label: string }[] = [
+  { value: 'all', label: '전체' },
+  { value: 'junior', label: '신입/주니어' },
+  { value: 'mid', label: '미드 (3~6년)' },
+  { value: 'senior', label: '시니어 (7년+)' },
+  { value: 'lead', label: '리드/수석' },
+]
+
+const sortOptions: { value: 'latest' | 'deadline' | 'salary' | 'company'; label: string }[] = [
+  { value: 'latest', label: '최신순' },
+  { value: 'deadline', label: '마감임박순' },
+  { value: 'salary', label: '연봉순' },
+  { value: 'company', label: '회사명순' },
+]
+
+const popularSkills = [
+  'Java', 'Python', 'TypeScript', 'React', 'Spring',
+  'Kotlin', 'Go', 'Kubernetes', 'AWS', 'Docker',
+  'Node.js', 'Next.js', 'PostgreSQL', 'Redis', 'Kafka',
+]
+
+const mainRegions = ['서울', '경기', '인천', '부산', '대전', '원격근무']
+
+const sourceOptions = [
+  { id: 'wanted' as const, name: '원티드' },
+  { id: 'saramin' as const, name: '사람인' },
+  { id: 'jobkorea' as const, name: '잡코리아' },
+  { id: 'programmers' as const, name: '프로그래머스' },
+  { id: 'jumpit' as const, name: '점핏' },
+]
 
 export function FilterSidebar() {
   const selectedCategories = useFilterStore((s) => s.selectedCategories)
@@ -13,14 +49,18 @@ export function FilterSidebar() {
   const toggleSkill = useFilterStore((s) => s.toggleSkill)
   const remoteOnly = useFilterStore((s) => s.remoteOnly)
   const setRemoteOnly = useFilterStore((s) => s.setRemoteOnly)
+  const experienceLevel = useFilterStore((s) => s.experienceLevel)
+  const setExperienceLevel = useFilterStore((s) => s.setExperienceLevel)
+  const selectedRegions = useFilterStore((s) => s.selectedRegions)
+  const toggleRegion = useFilterStore((s) => s.toggleRegion)
+  const selectedSources = useFilterStore((s) => s.selectedSources)
+  const toggleSource = useFilterStore((s) => s.toggleSource)
+  const sortBy = useFilterStore((s) => s.sortBy)
+  const setSortBy = useFilterStore((s) => s.setSortBy)
+  const sortOrder = useFilterStore((s) => s.sortOrder)
+  const setSortOrder = useFilterStore((s) => s.setSortOrder)
   const resetFilters = useFilterStore((s) => s.resetFilters)
   const hasActiveFilters = useFilterStore((s) => s.hasActiveFilters)
-
-  const popularSkills = [
-    'Java', 'Python', 'TypeScript', 'React', 'Spring',
-    'Kotlin', 'Go', 'Kubernetes', 'AWS', 'Docker',
-    'Node.js', 'Next.js', 'PostgreSQL', 'Redis', 'Kafka',
-  ]
 
   return (
     <Card>
@@ -36,6 +76,36 @@ export function FilterSidebar() {
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
+        {/* 정렬 */}
+        <div>
+          <h4 className="mb-2 flex items-center gap-1.5 text-sm font-medium">
+            <ArrowUpDown className="size-3.5 text-muted-foreground" />
+            정렬
+          </h4>
+          <div className="flex flex-wrap gap-1.5">
+            {sortOptions.map((opt) => (
+              <Badge
+                key={opt.value}
+                variant={sortBy === opt.value ? 'default' : 'outline'}
+                className="cursor-pointer text-xs"
+                onClick={() => setSortBy(opt.value)}
+              >
+                {opt.label}
+              </Badge>
+            ))}
+            <Button
+              variant="ghost"
+              size="xs"
+              onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+              className="ml-auto h-5 px-1"
+            >
+              {sortOrder === 'desc' ? <SortDesc className="size-3.5" /> : <SortAsc className="size-3.5" />}
+            </Button>
+          </div>
+        </div>
+
+        <Separator />
+
         {/* 직군 필터 */}
         <div>
           <h4 className="mb-2 flex items-center gap-1.5 text-sm font-medium">
@@ -62,6 +132,28 @@ export function FilterSidebar() {
 
         <Separator />
 
+        {/* 경력 필터 */}
+        <div>
+          <h4 className="mb-2 flex items-center gap-1.5 text-sm font-medium">
+            <Briefcase className="size-3.5 text-muted-foreground" />
+            경력
+          </h4>
+          <div className="flex flex-wrap gap-1.5">
+            {experienceOptions.map((opt) => (
+              <Badge
+                key={opt.value}
+                variant={experienceLevel === opt.value ? 'default' : 'outline'}
+                className="cursor-pointer text-xs"
+                onClick={() => setExperienceLevel(opt.value)}
+              >
+                {opt.label}
+              </Badge>
+            ))}
+          </div>
+        </div>
+
+        <Separator />
+
         {/* 기술 스택 필터 */}
         <div>
           <h4 className="mb-2 flex items-center gap-1.5 text-sm font-medium">
@@ -77,6 +169,50 @@ export function FilterSidebar() {
                 onClick={() => toggleSkill(skill)}
               >
                 {skill}
+              </Badge>
+            ))}
+          </div>
+        </div>
+
+        <Separator />
+
+        {/* 지역 필터 */}
+        <div>
+          <h4 className="mb-2 flex items-center gap-1.5 text-sm font-medium">
+            <MapPin className="size-3.5 text-muted-foreground" />
+            지역
+          </h4>
+          <div className="flex flex-wrap gap-1.5">
+            {mainRegions.map((region) => (
+              <Badge
+                key={region}
+                variant={selectedRegions.includes(region) ? 'default' : 'outline'}
+                className="cursor-pointer text-xs"
+                onClick={() => toggleRegion(region)}
+              >
+                {region}
+              </Badge>
+            ))}
+          </div>
+        </div>
+
+        <Separator />
+
+        {/* 소스 필터 */}
+        <div>
+          <h4 className="mb-2 flex items-center gap-1.5 text-sm font-medium">
+            <Radio className="size-3.5 text-muted-foreground" />
+            소스
+          </h4>
+          <div className="flex flex-wrap gap-1.5">
+            {sourceOptions.map((src) => (
+              <Badge
+                key={src.id}
+                variant={selectedSources.includes(src.id) ? 'default' : 'outline'}
+                className="cursor-pointer text-xs"
+                onClick={() => toggleSource(src.id)}
+              >
+                {src.name}
               </Badge>
             ))}
           </div>

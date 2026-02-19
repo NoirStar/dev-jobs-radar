@@ -12,10 +12,17 @@ export function AppLayout() {
       <Header />
       <div className="flex flex-1 overflow-hidden">
         <Sidebar />
+        {/* 모바일 오버레이 */}
+        {sidebarOpen && (
+          <div
+            className="fixed inset-0 z-30 bg-black/40 lg:hidden"
+            onClick={() => useUserStore.getState().toggleSidebar()}
+          />
+        )}
         <main
           className={cn(
-            'flex-1 overflow-y-auto p-6 transition-all duration-300',
-            sidebarOpen ? 'ml-60' : 'ml-16',
+            'flex-1 overflow-y-auto p-4 transition-all duration-300 md:p-6',
+            sidebarOpen ? 'lg:ml-56' : 'lg:ml-14',
           )}
         >
           <Outlet />

@@ -25,8 +25,8 @@ export function Sidebar() {
   return (
     <aside
       className={cn(
-        'fixed left-0 top-14 z-40 flex h-[calc(100vh-3.5rem)] flex-col border-r bg-background/50 backdrop-blur-md transition-all duration-300',
-        sidebarOpen ? 'w-56' : 'w-14',
+        'fixed left-0 top-14 z-40 flex h-[calc(100vh-3.5rem)] flex-col border-r bg-background/95 backdrop-blur-md transition-all duration-300',
+        sidebarOpen ? 'w-56 translate-x-0' : 'w-14 max-lg:-translate-x-full lg:translate-x-0',
       )}
     >
       <nav className="flex flex-1 flex-col gap-0.5 p-2">

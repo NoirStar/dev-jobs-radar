@@ -1,4 +1,5 @@
 import { MapPin, Calendar, ExternalLink, Wifi, Banknote } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -11,11 +12,12 @@ interface JobCardProps {
 }
 
 export function JobCard({ job }: JobCardProps) {
+  const navigate = useNavigate()
   const source = SOURCE_MAP.get(job.source)
   const CategoryIcon = getCategoryIcon(job.category)
 
   return (
-    <Card className="transition-all hover:shadow-md hover:border-primary/20">
+    <Card className="cursor-pointer transition-all hover:shadow-md hover:border-primary/20" onClick={() => navigate(`/job/${job.id}`)}>
       <CardContent className="space-y-3 pt-6">
         {/* 헤더: 회사 + 직군 */}
         <div className="flex items-start justify-between">
