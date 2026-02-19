@@ -230,19 +230,19 @@ describe('App 라우팅', () => {
     expect(screen.getByRole('heading', { name: '대시보드' })).toBeInTheDocument()
   })
 
-  it('/calendar 경로에서 캘린더가 렌더된다', () => {
+  it('/calendar 경로에서 캘린더가 렌더된다', async () => {
     renderWithProviders(<App />, { route: '/calendar' })
-    expect(screen.getByRole('heading', { name: '채용 캘린더' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: '채용 캘린더' })).toBeInTheDocument()
   })
 
-  it('/analysis 경로에서 기술 분석이 렌더된다', () => {
+  it('/analysis 경로에서 기술 분석이 렌더된다', async () => {
     renderWithProviders(<App />, { route: '/analysis' })
-    expect(screen.getByRole('heading', { name: '기술 분석' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: '기술 분석' })).toBeInTheDocument()
   })
 
-  it('/companies 경로에서 기업 탐색이 렌더된다', () => {
+  it('/companies 경로에서 기업 탐색이 렌더된다', async () => {
     renderWithProviders(<App />, { route: '/companies' })
-    expect(screen.getByRole('heading', { name: '기업 탐색' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: '기업 탐색' })).toBeInTheDocument()
   })
 
   it('존재하지 않는 경로는 대시보드로 리다이렉트된다', () => {

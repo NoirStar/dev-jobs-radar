@@ -512,7 +512,7 @@ describe('App 라우팅 (Phase 7)', () => {
         </MemoryRouter>
       </QueryClientProvider>,
     )
-    expect(screen.getByRole('heading', { name: '지원 추적' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: '지원 추적' })).toBeInTheDocument()
   })
 
   it('/alerts 경로에서 알림 페이지가 렌더된다', async () => {
@@ -525,7 +525,7 @@ describe('App 라우팅 (Phase 7)', () => {
         </MemoryRouter>
       </QueryClientProvider>,
     )
-    expect(screen.getByText('알림 설정')).toBeInTheDocument()
+    expect(await screen.findByText('알림 설정')).toBeInTheDocument()
   })
 
   it('/profile 경로에서 프로필 페이지가 렌더된다', async () => {
@@ -538,6 +538,6 @@ describe('App 라우팅 (Phase 7)', () => {
         </MemoryRouter>
       </QueryClientProvider>,
     )
-    expect(screen.getByText('프로필 설정')).toBeInTheDocument()
+    expect(await screen.findByText('프로필 설정')).toBeInTheDocument()
   })
 })
