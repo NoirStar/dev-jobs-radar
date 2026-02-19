@@ -1,6 +1,7 @@
 export { ChartContainer } from './ChartContainer'
 export { SkillTrendChart } from './SkillTrendChart'
 export { CategoryAreaChart } from './CategoryAreaChart'
+export { CategoryDistributionChart } from './CategoryDistributionChart'
 export { SkillBumpChart } from './SkillBumpChart'
 export { SalaryBoxChart } from './SalaryBoxChart'
 export { SkillHeatmap } from './SkillHeatmap'

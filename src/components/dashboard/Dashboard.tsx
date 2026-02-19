@@ -2,9 +2,7 @@ import { QuickStats } from './QuickStats'
 import { JobFeed } from './JobFeed'
 import { FilterSidebar } from './FilterSidebar'
 import {
-  SkillTrendChart,
-  CategoryAreaChart,
-  NewPostingsChart,
+  CategoryDistributionChart,
   SkillWordCloud,
 } from '@/components/charts'
 import { Button } from '@/components/ui/button'
@@ -41,14 +39,9 @@ export function Dashboard() {
         </div>
       )}
 
-      {/* 차트 그리드 */}
+      {/* 핵심 차트 2개 — 직군 분포 + 기술 키워드 */}
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
-        <SkillTrendChart />
-        <CategoryAreaChart />
-      </div>
-
-      <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
-        <NewPostingsChart />
+        <CategoryDistributionChart />
         <SkillWordCloud />
       </div>
 

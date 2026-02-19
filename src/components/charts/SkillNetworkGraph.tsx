@@ -1,6 +1,8 @@
 import { Share2 } from 'lucide-react'
 import { ChartContainer } from './ChartContainer'
-import { MOCK_NETWORK } from '@/data/chartMockData'
+import { useJobStore } from '@/stores/jobStore'
+import { computeNetwork } from '@/services/chartDataService'
+import type { NetworkGraphData } from '@/types/chart'
 import { useMemo, useState } from 'react'
 
 const GROUP_COLORS: Record<string, string> = {
@@ -10,7 +12,7 @@ const GROUP_COLORS: Record<string, string> = {
 }
 
 /** 간단한 원형 레이아웃 (force simulation 대체) */
-function computeLayout(nodes: typeof MOCK_NETWORK.nodes) {
+function computeLayout(nodes: NetworkGraphData['nodes']) {
   const cx = 300
   const cy = 180
   const radius = 130
@@ -24,18 +26,20 @@ function computeLayout(nodes: typeof MOCK_NETWORK.nodes) {
   })
 }
 
-/** ⑦ 기술 조합 네트워크 그래프 — SVG Circular Layout */
+/** ⑦ 기술 조합 네트워크 그래프 — SVG Circular Layout, jobStore 실시간 계산 */
 export function SkillNetworkGraph() {
   const [hovered, setHovered] = useState<string | null>(null)
+  const jobs = useJobStore((s) => s.jobs)
+  const networkData = useMemo(() => computeNetwork(jobs), [jobs])
 
-  const positioned = useMemo(() => computeLayout(MOCK_NETWORK.nodes), [])
+  const positioned = useMemo(() => computeLayout(networkData.nodes), [networkData.nodes])
   const posMap = useMemo(() => {
     const m = new Map<string, { x: number; y: number }>()
     for (const n of positioned) m.set(n.id, { x: n.x, y: n.y })
     return m
   }, [positioned])
 
-  const maxSize = useMemo(() => Math.max(...MOCK_NETWORK.nodes.map((n) => n.size)), [])
+  const maxSize = useMemo(() => Math.max(...networkData.nodes.map((n) => n.size), 1), [networkData.nodes])
 
   return (
     <ChartContainer
@@ -45,7 +49,7 @@ export function SkillNetworkGraph() {
     >
       <svg viewBox="0 0 600 360" className="w-full" role="img" aria-label="기술 조합 네트워크 그래프">
         {/* 링크 */}
-        {MOCK_NETWORK.links.map((link) => {
+        {networkData.links.map((link) => {
           const s = posMap.get(link.source)
           const t = posMap.get(link.target)
           if (!s || !t) return null

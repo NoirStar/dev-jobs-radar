@@ -1,6 +1,7 @@
 import { Cloud } from 'lucide-react'
 import { ChartContainer } from './ChartContainer'
-import { MOCK_WORDCLOUD } from '@/data/chartMockData'
+import { useJobStore } from '@/stores/jobStore'
+import { computeWordCloud } from '@/services/chartDataService'
 import { useMemo } from 'react'
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -11,17 +12,23 @@ const CATEGORY_COLORS: Record<string, string> = {
   database: '#ef4444',
   runtime: '#06b6d4',
   api: '#ec4899',
+  ai: '#f97316',
+  system: '#84cc16',
+  mobile: '#14b8a6',
+  other: '#888',
 }
 
-/** ⑩ 기술 워드클라우드 — SVG 기반 */
+/** ⑩ 기술 워드클라우드 — SVG 기반, jobStore 실시간 계산 */
 export function SkillWordCloud() {
+  const jobs = useJobStore((s) => s.jobs)
+
   const words = useMemo(() => {
-    const sorted = [...MOCK_WORDCLOUD.words].sort((a, b) => b.value - a.value)
+    const data = computeWordCloud(jobs)
+    const sorted = [...data.words].sort((a, b) => b.value - a.value)
     const maxVal = sorted[0]?.value ?? 1
     const minFont = 12
     const maxFont = 40
 
-    // 간단한 그리드 배치
     return sorted.map((w, i) => {
       const fontSize = minFont + ((w.value / maxVal) * (maxFont - minFont))
       return {
@@ -31,7 +38,7 @@ export function SkillWordCloud() {
         rotation: i % 5 === 0 ? -15 : i % 7 === 0 ? 15 : 0,
       }
     })
-  }, [])
+  }, [jobs])
 
   return (
     <ChartContainer

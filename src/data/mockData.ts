@@ -253,10 +253,4 @@ export const MOCK_CATEGORY_COUNTS: Record<string, number> = {
   it_planner: 11,
 }
 
-/** 목 통계 */
-export const MOCK_STATS = {
-  totalJobs: 579,
-  newToday: 24,
-  deadlineSoon: 8,
-  watchedNewJobs: 3,
-}
+// MOCK_STATS 제거됨 — QuickStats는 이제 chartDataService.computeQuickStats()로 실시간 계산

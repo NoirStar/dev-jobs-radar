@@ -6,20 +6,36 @@ import {
 } from 'recharts'
 import { Target } from 'lucide-react'
 import { ChartContainer } from './ChartContainer'
-import { MOCK_RADAR } from '@/data/chartMockData'
+import { useJobStore } from '@/stores/jobStore'
+import { useAuthStore } from '@/stores/authStore'
 
-/** ⑨ 레이더 차트 — 내 기술 vs 시장 요구 */
+/** ⑨ 레이더 차트 — 내 기술 vs 시장 요구 (jobStore 실시간 계산) */
 export function SkillRadarChart() {
-  // recharts Radar용 데이터 포맷 (memoized)
-  const chartData = useMemo(
-    () =>
-      MOCK_RADAR.axes.map((axis, i) => ({
-        skill: axis,
-        시장요구: MOCK_RADAR.series[0].values[i],
-        내역량: MOCK_RADAR.series[1].values[i],
-      })),
-    [],
-  )
+  const jobs = useJobStore((s) => s.jobs)
+  const userSkills = useAuthStore((s) => s.user?.interestedSkills) ?? []
+
+  const chartData = useMemo(() => {
+    // 시장 기술 빈도 계산
+    const skillCounts = new Map<string, number>()
+    for (const job of jobs) {
+      for (const skill of job.skills) {
+        skillCounts.set(skill, (skillCounts.get(skill) ?? 0) + 1)
+      }
+    }
+    // 상위 8개 기술
+    const topSkills = [...skillCounts.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 8)
+
+    const maxCount = topSkills[0]?.[1] ?? 1
+    const userSet = new Set(userSkills)
+
+    return topSkills.map(([skill, count]) => ({
+      skill,
+      시장요구: Math.round((count / maxCount) * 100),
+      내역량: userSet.has(skill) ? 80 : 0, // 보유=80, 미보유=0
+    }))
+  }, [jobs, userSkills])
 
   return (
     <ChartContainer

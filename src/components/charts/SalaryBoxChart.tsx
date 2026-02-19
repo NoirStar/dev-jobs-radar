@@ -1,6 +1,7 @@
 import { Banknote } from 'lucide-react'
 import { ChartContainer } from './ChartContainer'
-import { MOCK_SALARY_BOX } from '@/data/chartMockData'
+import { useJobStore } from '@/stores/jobStore'
+import { computeSalaryBox } from '@/services/chartDataService'
 import { useMemo } from 'react'
 
 const CHART_W = 600
@@ -9,18 +10,22 @@ const PAD = { top: 20, right: 30, bottom: 40, left: 70 }
 const PLOT_W = CHART_W - PAD.left - PAD.right
 const PLOT_H = CHART_H - PAD.top - PAD.bottom
 
-/** ④ 연봉 분포 — 커스텀 Box Plot (SVG) */
+/** ④ 연봉 분포 — 커스텀 Box Plot (SVG, jobStore 실시간 계산) */
 export function SalaryBoxChart() {
+  const jobs = useJobStore((s) => s.jobs)
+  const boxData = useMemo(() => computeSalaryBox(jobs), [jobs])
+
   const { maxValue, scale, barW, boxW, yTicks } = useMemo(() => {
-    const mv = Math.max(...MOCK_SALARY_BOX.flatMap((d) => [d.max, ...d.outliers]))
+    if (boxData.length === 0) return { maxValue: 10000, scale: () => 0, barW: 0, boxW: 0, yTicks: [] }
+    const mv = Math.max(...boxData.flatMap((d) => [d.max, ...d.outliers]))
     return {
       maxValue: mv,
       scale: (v: number) => PAD.top + PLOT_H - (v / mv) * PLOT_H,
-      barW: PLOT_W / MOCK_SALARY_BOX.length,
-      boxW: (PLOT_W / MOCK_SALARY_BOX.length) * 0.4,
+      barW: PLOT_W / boxData.length,
+      boxW: (PLOT_W / boxData.length) * 0.4,
       yTicks: Array.from({ length: 5 }, (_, i) => Math.round((mv / 4) * i)),
     }
-  }, [])
+  }, [boxData])
 
   return (
     <ChartContainer
@@ -58,7 +63,7 @@ export function SalaryBoxChart() {
           ))}
 
           {/* Box plots */}
-          {MOCK_SALARY_BOX.map((d, i) => {
+          {boxData.map((d, i) => {
             const cx = PAD.left + barW * i + barW / 2
             const x = cx - boxW / 2
             return (

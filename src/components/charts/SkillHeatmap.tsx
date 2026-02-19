@@ -1,11 +1,13 @@
 import { Grid3x3 } from 'lucide-react'
 import { ChartContainer } from './ChartContainer'
-import { MOCK_HEATMAP } from '@/data/chartMockData'
+import { useJobStore } from '@/stores/jobStore'
+import { computeHeatmap } from '@/services/chartDataService'
 import { useMemo } from 'react'
 
-/** ⑤ 기술 히트맵 — 직군 × 기술 교차 빈도 */
+/** ⑤ 기술 히트맵 — 직군 × 기술 교차 빈도 (jobStore 실시간 계산) */
 export function SkillHeatmap() {
-  const { rows, columns, values } = MOCK_HEATMAP
+  const jobs = useJobStore((s) => s.jobs)
+  const { rows, columns, values } = useMemo(() => computeHeatmap(jobs), [jobs])
 
   const valueMap = useMemo(() => {
     const map = new Map<string, number>()

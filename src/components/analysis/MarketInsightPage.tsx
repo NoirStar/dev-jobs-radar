@@ -1,13 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import {
-  SkillTrendChart,
-  CategoryAreaChart,
-  SkillBumpChart,
+  CategoryDistributionChart,
   SalaryBoxChart,
   SkillHeatmap,
-  NewPostingsChart,
-  RegionMap,
+  SkillWordCloud,
 } from '@/components/charts'
 import { generateMarketInsight } from '@/services/skillAnalyzer'
 import { useJobStore } from '@/stores/jobStore'
@@ -148,23 +145,15 @@ export function MarketInsightPage() {
         </div>
       )}
 
-      {/* 차트 그리드 */}
+      {/* 차트 그리드 — 실제 데이터 기반 */}
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
-        <SkillTrendChart />
-        <CategoryAreaChart />
-      </div>
-
-      <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
-        <SkillBumpChart />
-        <NewPostingsChart />
+        <CategoryDistributionChart />
+        <SkillWordCloud />
       </div>
 
       <SkillHeatmap />
 
-      <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
-        <SalaryBoxChart />
-        <RegionMap />
-      </div>
+      <SalaryBoxChart />
     </div>
   )
 }

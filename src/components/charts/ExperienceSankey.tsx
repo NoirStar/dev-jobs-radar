@@ -1,9 +1,10 @@
 import { GitBranch } from 'lucide-react'
 import { ChartContainer } from './ChartContainer'
-import { MOCK_SANKEY } from '@/data/chartMockData'
+import { useJobStore } from '@/stores/jobStore'
+import { computeSankey } from '@/services/chartDataService'
 import { useMemo, useState } from 'react'
 
-const EXP_COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444']
+const EXP_COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6']
 const SKILL_COLORS: Record<string, string> = {
   'sk-java': '#e76f00',
   'sk-python': '#3776ab',
@@ -11,31 +12,35 @@ const SKILL_COLORS: Record<string, string> = {
   'sk-spring': '#6db33f',
   'sk-k8s': '#326ce5',
   'sk-aws': '#ff9900',
+  'sk-typescript': '#3178c6',
+  'sk-docker': '#2496ed',
 }
 
 const WIDTH = 600
 const HEIGHT = 300
 const PAD = { top: 20, right: 100, bottom: 20, left: 100 }
 
-/** ⑪ 경력별 기술 요구 Sankey — 간이 SVG 구현 */
+/** ⑪ 경력별 기술 요구 Sankey — 간이 SVG 구현, jobStore 실시간 계산 */
 export function ExperienceSankey() {
   const [hoveredLink, setHoveredLink] = useState<string | null>(null)
+  const jobs = useJobStore((s) => s.jobs)
+  const sankeyData = useMemo(() => computeSankey(jobs), [jobs])
 
   const { expNodes, skillNodes, links } = useMemo(() => {
-    const exps = MOCK_SANKEY.nodes.filter((n) => n.id.startsWith('exp-'))
-    const skills = MOCK_SANKEY.nodes.filter((n) => n.id.startsWith('sk-'))
+    const exps = sankeyData.nodes.filter((n) => n.id.startsWith('exp-'))
+    const skills = sankeyData.nodes.filter((n) => n.id.startsWith('sk-'))
 
     // 경력 노드 — y 위치
     const expTotals = exps.map((e) => ({
       ...e,
-      total: MOCK_SANKEY.links.filter((l) => l.source === e.id).reduce((s, l) => s + l.value, 0),
+      total: sankeyData.links.filter((l) => l.source === e.id).reduce((s, l) => s + l.value, 0),
     }))
-    const totalAll = expTotals.reduce((s, e) => s + e.total, 0)
+    const totalAll = expTotals.reduce((s, e) => s + e.total, 0) || 1
     const availH = HEIGHT - PAD.top - PAD.bottom
     let yAcc = PAD.top
     const expPos = expTotals.map((e, i) => {
-      const h = (e.total / totalAll) * availH * 0.85
-      const pos = { ...e, x: PAD.left, y: yAcc, h, color: EXP_COLORS[i] }
+      const h = Math.max((e.total / totalAll) * availH * 0.85, 8)
+      const pos = { ...e, x: PAD.left, y: yAcc, h, color: EXP_COLORS[i % EXP_COLORS.length] }
       yAcc += h + 8
       return pos
     })
@@ -43,12 +48,12 @@ export function ExperienceSankey() {
     // 스킬 노드 — y 위치
     const skillTotals = skills.map((s) => ({
       ...s,
-      total: MOCK_SANKEY.links.filter((l) => l.target === s.id).reduce((sum, l) => sum + l.value, 0),
+      total: sankeyData.links.filter((l) => l.target === s.id).reduce((sum, l) => sum + l.value, 0),
     }))
-    const skillTotalAll = skillTotals.reduce((s, sk) => s + sk.total, 0)
+    const skillTotalAll = skillTotals.reduce((s, sk) => s + sk.total, 0) || 1
     let yAcc2 = PAD.top
     const skillPos = skillTotals.map((s) => {
-      const h = (s.total / skillTotalAll) * availH * 0.85
+      const h = Math.max((s.total / skillTotalAll) * availH * 0.85, 8)
       const pos = { ...s, x: WIDTH - PAD.right, y: yAcc2, h, color: SKILL_COLORS[s.id] ?? '#888' }
       yAcc2 += h + 8
       return pos
@@ -60,15 +65,16 @@ export function ExperienceSankey() {
     expPos.forEach((e) => expOffsets.set(e.id, 0))
     skillPos.forEach((s) => skillOffsets.set(s.id, 0))
 
-    const linkPaths = MOCK_SANKEY.links.map((l) => {
-      const src = expPos.find((e) => e.id === l.source)!
-      const tgt = skillPos.find((s) => s.id === l.target)!
+    const linkPaths = sankeyData.links.map((l) => {
+      const src = expPos.find((e) => e.id === l.source)
+      const tgt = skillPos.find((s) => s.id === l.target)
+      if (!src || !tgt) return null
 
       const srcOff = expOffsets.get(l.source) ?? 0
       const tgtOff = skillOffsets.get(l.target) ?? 0
 
-      const srcRatio = l.value / src.total
-      const tgtRatio = l.value / tgt.total
+      const srcRatio = l.value / (src.total || 1)
+      const tgtRatio = l.value / (tgt.total || 1)
       const srcH = srcRatio * src.h
       const tgtH = tgtRatio * tgt.h
 
@@ -91,10 +97,10 @@ export function ExperienceSankey() {
         srcLabel: src.label,
         tgtLabel: tgt.label,
       }
-    })
+    }).filter(Boolean) as Array<{ key: string; path: string; color: string; value: number; srcLabel: string; tgtLabel: string }>
 
     return { expNodes: expPos, skillNodes: skillPos, links: linkPaths }
-  }, [])
+  }, [sankeyData])
 
   return (
     <ChartContainer
