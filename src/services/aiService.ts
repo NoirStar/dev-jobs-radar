@@ -37,8 +37,16 @@ async function chatComplete(messages: ChatMessage[], maxTokens = 1024): Promise<
       const data = await proxyRes.json()
       return data.content ?? data.choices?.[0]?.message?.content ?? ''
     }
-  } catch {
-    // 프록시 미사용 시 직접 호출 폴백
+  } catch (err) {
+    // 프록시 실패 시 직접 호출 폴백 (개발 환경만)
+    if (import.meta.env.DEV) {
+      console.warn('[AI] 프록시 실패, 직접 OpenAI 호출 시도:', err)
+    }
+  }
+
+  // ⚠️ 직접 호출은 개발 환경에서만 허용 (프로덕션에서는 API 키 노출 방지)
+  if (!import.meta.env.DEV) {
+    throw new Error('AI 프록시 서버를 사용할 수 없습니다.')
   }
 
   const res = await fetch(OPENAI_URL, {
@@ -143,9 +151,9 @@ export async function summarizeJob(job: JobPosting): Promise<JobSummary> {
 - 기업: ${job.companyName}
 - 직군: ${job.category}
 - 위치: ${job.location}
-- 설명: ${job.description ?? '없음'}
-- 요구사항: ${job.requirements ?? '없음'}
-- 우대사항: ${job.preferredQualifications ?? '없음'}
+- 설명: ${(job.description ?? '없음').slice(0, 2000)}
+- 요구사항: ${(job.requirements ?? '없음').slice(0, 1000)}
+- 우대사항: ${(job.preferredQualifications ?? '없음').slice(0, 500)}
 - 기술: ${job.skills.all.join(', ')}
 
 JSON 형식:

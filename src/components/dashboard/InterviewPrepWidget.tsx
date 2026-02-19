@@ -18,7 +18,8 @@ interface Props {
 }
 
 export function InterviewPrepWidget({ job }: Props) {
-  const prep = useMemo(() => generateLocalInterviewPrep(job), [job.id])
+  const jobId = job.id
+  const prep = useMemo(() => generateLocalInterviewPrep(job), [job, jobId])
 
   return (
     <div className="space-y-4">

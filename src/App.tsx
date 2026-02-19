@@ -31,6 +31,9 @@ const AlertsPage = lazy(() =>
 const ProfilePage = lazy(() =>
   import('@/components/profile/ProfilePage').then((m) => ({ default: m.ProfilePage })),
 )
+const TechPulsePage = lazy(() =>
+  import('@/components/analysis/TechPulsePage').then((m) => ({ default: m.TechPulsePage })),
+)
 
 function PageLoader() {
   return (
@@ -51,6 +54,7 @@ export default function App() {
         <Route path="/insight" element={<Suspense fallback={<PageLoader />}><MarketInsightPage /></Suspense>} />
         <Route path="/companies" element={<Suspense fallback={<PageLoader />}><CompanyExplorer /></Suspense>} />
         <Route path="/company/:companyId" element={<Suspense fallback={<PageLoader />}><CompanyProfilePage /></Suspense>} />
+        <Route path="/techpulse" element={<Suspense fallback={<PageLoader />}><TechPulsePage /></Suspense>} />
         <Route path="/tracking" element={<Suspense fallback={<PageLoader />}><ApplicationTracker /></Suspense>} />
         <Route path="/alerts" element={<Suspense fallback={<PageLoader />}><AlertsPage /></Suspense>} />
         <Route path="/profile" element={<Suspense fallback={<PageLoader />}><ProfilePage /></Suspense>} />
