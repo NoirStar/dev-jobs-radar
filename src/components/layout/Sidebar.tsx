@@ -4,6 +4,7 @@ import {
   Calendar,
   BarChart3,
   Building2,
+  TrendingUp,
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react'
@@ -15,6 +16,7 @@ const navItems = [
   { to: '/', label: '대시보드', icon: LayoutDashboard },
   { to: '/calendar', label: '채용 캘린더', icon: Calendar },
   { to: '/analysis', label: '기술 분석', icon: BarChart3 },
+  { to: '/insight', label: '시장 인사이트', icon: TrendingUp },
   { to: '/companies', label: '기업 탐색', icon: Building2 },
 ]
 

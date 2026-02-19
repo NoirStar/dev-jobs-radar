@@ -110,3 +110,16 @@ export interface SkillAnalysisSnapshot {
   skillTrends: SkillTrendPoint[]
   createdAt: string
 }
+
+/** 시장 인사이트 요약 */
+export interface MarketInsight {
+  totalPostings: number
+  activeCompanies: number
+  topCategory: { name: string; count: number }
+  topSkill: { name: string; count: number; percentage: number }
+  avgSalary: { min: number; max: number } | null
+  remotePercentage: number
+  risingSkills: SkillStat[]
+  decliningSkills: SkillStat[]
+  categoryBreakdown: { category: string; label: string; count: number; percentage: number }[]
+}
