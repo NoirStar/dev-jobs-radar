@@ -2,7 +2,7 @@ import { Zap, Loader2 } from 'lucide-react'
 import { useJobStore } from '@/stores/jobStore'
 import { useFilterStore } from '@/stores/filterStore'
 import { JobCard } from './JobCard'
-import { useMemo, useState, useCallback, useRef, useEffect } from 'react'
+import { useMemo, useState, useRef, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 
 const PAGE_SIZE = 10
@@ -102,24 +102,29 @@ export function JobFeed() {
     setVisibleCount(PAGE_SIZE)
   }, [searchQuery, selectedCategories, selectedSkills, selectedRegions, selectedSources, experienceLevel, remoteOnly, sortBy, sortOrder])
 
-  // 무한스크롤 IntersectionObserver
-  const handleObserver = useCallback(
-    (entries: IntersectionObserverEntry[]) => {
-      const [entry] = entries
-      if (entry.isIntersecting && visibleCount < filteredJobs.length) {
-        setVisibleCount((prev) => Math.min(prev + PAGE_SIZE, filteredJobs.length))
-      }
-    },
-    [visibleCount, filteredJobs.length],
-  )
+  // 무한스크롤 IntersectionObserver (filteredJobs.length만 의존하여 observer 재생성 최소화)
+  const filteredLengthRef = useRef(filteredJobs.length)
+  filteredLengthRef.current = filteredJobs.length
 
   useEffect(() => {
     const el = loadMoreRef.current
     if (!el) return
-    const observer = new IntersectionObserver(handleObserver, { threshold: 0.1 })
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries
+        if (entry.isIntersecting) {
+          setVisibleCount((prev) =>
+            prev < filteredLengthRef.current
+              ? Math.min(prev + PAGE_SIZE, filteredLengthRef.current)
+              : prev,
+          )
+        }
+      },
+      { threshold: 0.1 },
+    )
     observer.observe(el)
     return () => observer.disconnect()
-  }, [handleObserver])
+  }, []) // observer는 한 번만 생성
 
   const visibleJobs = filteredJobs.slice(0, visibleCount)
   const hasMore = visibleCount < filteredJobs.length

@@ -33,23 +33,26 @@ export function CalendarPage() {
     return map
   }, [deadlineJobs])
 
-  // 캘린더 그리드 생성
-  const firstDay = new Date(year, month, 1).getDay()
-  const daysInMonth = new Date(year, month + 1, 0).getDate()
-  const weeks: (number | null)[][] = []
-  let week: (number | null)[] = Array(firstDay).fill(null)
+  // 캘린더 그리드 생성 (useMemo로 불필요한 재계산 방지)
+  const weeks = useMemo(() => {
+    const firstDay = new Date(year, month, 1).getDay()
+    const daysInMonth = new Date(year, month + 1, 0).getDate()
+    const result: (number | null)[][] = []
+    let week: (number | null)[] = Array(firstDay).fill(null)
 
-  for (let day = 1; day <= daysInMonth; day++) {
-    week.push(day)
-    if (week.length === 7) {
-      weeks.push(week)
-      week = []
+    for (let day = 1; day <= daysInMonth; day++) {
+      week.push(day)
+      if (week.length === 7) {
+        result.push(week)
+        week = []
+      }
     }
-  }
-  if (week.length > 0) {
-    while (week.length < 7) week.push(null)
-    weeks.push(week)
-  }
+    if (week.length > 0) {
+      while (week.length < 7) week.push(null)
+      result.push(week)
+    }
+    return result
+  }, [year, month])
 
   const prevMonth = () => setCurrentDate(new Date(year, month - 1, 1))
   const nextMonth = () => setCurrentDate(new Date(year, month + 1, 1))
@@ -112,9 +115,7 @@ export function CalendarPage() {
                           </span>
                           {dayJobs && (
                             <div className="mt-0.5 space-y-0.5">
-                              {dayJobs.slice(0, 2).map((j) => {
-                                const Icon = getCategoryIcon(j.category)
-                                return (
+                              {dayJobs.slice(0, 2).map((j) => (
                                   <div
                                     key={j.id}
                                     className="truncate rounded bg-primary/10 px-1 py-0.5 text-[10px] text-primary"
@@ -122,8 +123,7 @@ export function CalendarPage() {
                                   >
                                     {j.companyName}
                                   </div>
-                                )
-                              })}
+                                ))}
                               {dayJobs.length > 2 && (
                                 <div className="text-[10px] text-muted-foreground">
                                   +{dayJobs.length - 2}개
