@@ -1,7 +1,12 @@
 import { QuickStats } from './QuickStats'
 import { JobFeed } from './JobFeed'
 import { FilterSidebar } from './FilterSidebar'
-import { SkillTrendWidget } from './SkillTrendWidget'
+import {
+  SkillTrendChart,
+  CategoryAreaChart,
+  NewPostingsChart,
+  SkillWordCloud,
+} from '@/components/charts'
 import { Button } from '@/components/ui/button'
 import { SlidersHorizontal, X } from 'lucide-react'
 import { useState } from 'react'
@@ -36,15 +41,24 @@ export function Dashboard() {
         </div>
       )}
 
+      {/* 차트 그리드 */}
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
+        <SkillTrendChart />
+        <CategoryAreaChart />
+      </div>
+
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
+        <NewPostingsChart />
+        <SkillWordCloud />
+      </div>
+
+      {/* 메인 콘텐츠 */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-4">
         <div className="hidden lg:col-span-1 lg:block">
           <FilterSidebar />
         </div>
-        <div className="space-y-6 lg:col-span-2">
+        <div className="space-y-6 lg:col-span-3">
           <JobFeed />
-        </div>
-        <div className="lg:col-span-1">
-          <SkillTrendWidget />
         </div>
       </div>
     </div>

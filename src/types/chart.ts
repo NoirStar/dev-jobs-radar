@@ -95,3 +95,9 @@ export interface MapChartData {
     coordinates: [number, number]
   }[]
 }
+
+/** 기업 채용 타임라인 데이터 */
+export interface CompanyTimelineItem {
+  company: string
+  months: { month: string; count: number }[]
+}

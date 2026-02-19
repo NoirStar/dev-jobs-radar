@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { useCompanyStore } from '@/stores/companyStore'
 import { Building2, MapPin } from 'lucide-react'
+import { CompanyTimeline, RegionMap } from '@/components/charts'
 
 export function CompanyPage() {
   const companies = useCompanyStore((s) => s.companies)
@@ -13,6 +14,12 @@ export function CompanyPage() {
         <p className="text-muted-foreground">
           IT 기업 프로필 & 채용 현황 ({companies.length}개 기업)
         </p>
+      </div>
+
+      {/* 기업 채용 타임라인 + 지역 분포 */}
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
+        <CompanyTimeline />
+        <RegionMap />
       </div>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
