@@ -45,15 +45,66 @@
 
 | Phase | 내용 | 상태 |
 |-------|------|------|
-| 0 | 프로젝트 세팅 & 기반 구조 | 🔲 |
-| 1 | Tier 1 채용 플랫폼 수집기 (5개) | 🔲 |
-| 2 | 프론트엔드 대시보드 & 필터 | 🔲 |
-| 3 | 트렌드 그래프 & 차트 시각화 (12종) | 🔲 |
-| 4 | 기술 분석 엔진 & 인사이트 | 🔲 |
-| 5 | 기업 탐색 & Tier 2 수집기 (11개) | 🔲 |
-| 6 | 글로벌 & 기업 직접 수집기 (54개) | 🔲 |
-| 7 | 사용자 기능 & 알림 | 🔲 |
-| 8 | 고도화 (AI 요약, TechPulse 연동) | 🔲 |
+| 0 | 프로젝트 세팅 & 기반 구조 | ✅ |
+| 1 | Tier 1 채용 플랫폼 수집기 (5개) | ✅ |
+| 2 | 프론트엔드 대시보드 & 필터 | ✅ |
+| 3 | 트렌드 그래프 & 차트 시각화 (7종) | ✅ |
+| 4 | 기술 분석 엔진 & 인사이트 | ✅ |
+| 5 | 기업 탐색 & 관심 기업 | ✅ |
+| 6 | 글로벌 & 기업 직접 수집기 | 🔲 |
+| 7 | 사용자 기능 & 알림 | ✅ (Auth, 프로필, 지원추적, 알림) |
+| 8 | 고도화 (AI 요약, PWA, 다크모드) | ✅ |
+| 9 | Supabase 데이터 파이프라인 | ✅ |
+
+---
+
+## 배포 가이드
+
+### 1. Supabase 프로젝트 생성
+
+1. [supabase.com](https://supabase.com) 에서 새 프로젝트 생성
+2. **SQL Editor** → [supabase/schema.sql](supabase/schema.sql) 실행
+3. **Settings → API** 에서 다음 값 확인:
+   - `Project URL` → `VITE_SUPABASE_URL` / `SUPABASE_URL`
+   - `anon public` key → `VITE_SUPABASE_ANON_KEY`
+   - `service_role` key → `SUPABASE_SERVICE_ROLE_KEY`
+
+### 2. Vercel 배포
+
+```bash
+# Vercel CLI 설치 & 배포
+npm i -g vercel
+vercel
+```
+
+**Vercel Dashboard → Settings → Environment Variables** 에 설정:
+
+| 변수 | 용도 | 대상 |
+|------|------|------|
+| `VITE_SUPABASE_URL` | Supabase URL | Preview, Production |
+| `VITE_SUPABASE_ANON_KEY` | Supabase anon key | Preview, Production |
+| `SUPABASE_URL` | Supabase URL (서버용) | Preview, Production |
+| `SUPABASE_SERVICE_ROLE_KEY` | DB 쓰기 권한 키 | Production only |
+| `CRON_SECRET` | Cron 인증 | Production only |
+
+### 3. Cron 자동 수집
+
+`vercel.json`에 이미 Cron 스케줄 설정됨 → 배포 후 자동으로 1시간마다 수집 실행:
+- 수집 → 파싱 → Supabase `jobs` 테이블 upsert
+- 일별 스냅샷 → `snapshots` 테이블 축적
+
+### 4. 로컬 개발
+
+```bash
+cp .env.example .env.local
+# .env.local 에 Supabase 키 입력
+
+npm install
+npm run dev   # http://localhost:5173
+npm run test  # 458 tests
+```
+
+> Supabase 미설정 시 MOCK_JOBS 데모 데이터로 자동 폴백됩니다.
 
 ## 자매 프로젝트
 
