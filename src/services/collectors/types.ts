@@ -28,6 +28,8 @@ export interface RawJobData {
   tags?: string[]
   /** 공고 본문 (기술 추출용) */
   description?: string
+  /** 게시일 */
+  postedAt?: string
   /** 원격근무 여부 */
   isRemote?: boolean
   /** 수집 시각 */
