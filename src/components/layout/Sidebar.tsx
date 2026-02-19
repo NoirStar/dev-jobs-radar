@@ -5,6 +5,9 @@ import {
   BarChart3,
   Building2,
   TrendingUp,
+  ClipboardList,
+  Bell,
+  User,
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react'
@@ -18,6 +21,9 @@ const navItems = [
   { to: '/analysis', label: '기술 분석', icon: BarChart3 },
   { to: '/insight', label: '시장 인사이트', icon: TrendingUp },
   { to: '/companies', label: '기업 탐색', icon: Building2 },
+  { to: '/tracking', label: '지원 추적', icon: ClipboardList },
+  { to: '/alerts', label: '알림', icon: Bell },
+  { to: '/profile', label: '프로필', icon: User },
 ]
 
 export function Sidebar() {
@@ -37,6 +43,8 @@ export function Sidebar() {
             key={to}
             to={to}
             end={to === '/'}
+            aria-label={label}
+            title={!sidebarOpen ? label : undefined}
             className={({ isActive }) =>
               cn(
                 'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',

@@ -7,6 +7,9 @@ import { MarketInsightPage } from '@/components/analysis/MarketInsightPage'
 import { CompanyExplorer } from '@/components/company/CompanyExplorer'
 import { CompanyProfilePage } from '@/components/company/CompanyProfilePage'
 import { JobDetailPage } from '@/components/dashboard/JobDetailPage'
+import { ApplicationTracker } from '@/components/tracking/ApplicationTracker'
+import { AlertsPage } from '@/components/alerts/AlertsPage'
+import { ProfilePage } from '@/components/profile/ProfilePage'
 
 export default function App() {
   return (
@@ -19,6 +22,9 @@ export default function App() {
         <Route path="/insight" element={<MarketInsightPage />} />
         <Route path="/companies" element={<CompanyExplorer />} />
         <Route path="/company/:companyId" element={<CompanyProfilePage />} />
+        <Route path="/tracking" element={<ApplicationTracker />} />
+        <Route path="/alerts" element={<AlertsPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
